@@ -13,6 +13,12 @@
   to = "/.netlify/functions/:splat"
   status = 200
 
+# Allow Google Search Console verification file to be accessed directly
+[[redirects]]
+  from = "/google8b1fbe351d536351.html"
+  to = "/google8b1fbe351d536351.html"
+  status = 200
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
