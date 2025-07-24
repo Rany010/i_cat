@@ -2,11 +2,16 @@
   "name": "i-cat",
   "version": "1.0.0",
   "description": "流浪猫咪求助信息网站",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
   "scripts": {
     "dev": "netlify dev",
-    "build": "cd frontend && npm run build",
+    "build": "cd frontend && npm ci && npm run build",
     "start": "netlify dev",
-    "install-deps": "cd frontend && npm install"
+    "install-deps": "cd frontend && npm install",
+    "preview": "cd frontend && npm run preview"
   },
   "keywords": ["cat", "rescue", "help", "react", "netlify"],
   "author": "",
