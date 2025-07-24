@@ -1,0 +1,17 @@
+{
+  "name": "i-cat",
+  "version": "1.0.0",
+  "description": "流浪猫咪求助信息网站",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "cd frontend && npm run build",
+    "start": "netlify dev",
+    "install-deps": "cd frontend && npm install"
+  },
+  "keywords": ["cat", "rescue", "help", "react", "netlify"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "netlify-cli": "^15.0.0"
+  }
+} 
