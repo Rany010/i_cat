@@ -10,6 +10,7 @@ import {
   ChevronLeft,
   ChevronRight
 } from 'lucide-react'
+import AnimatedCatBackground from '../components/AnimatedCatBackground'
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -96,14 +97,17 @@ const Home = () => {
     <div>
       {/* Hero Section */}
       <section 
-        className="relative bg-gradient-to-r from-gray-900 to-gray-700 text-white py-20 md:py-32"
+        className="relative bg-gradient-to-r from-gray-900 to-gray-700 text-white py-20 md:py-32 overflow-hidden"
         style={{
           backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(https://images.unsplash.com/photo-1574158622682-e40e69841006?q=80&w=2080&auto=format&fit=crop)',
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
       >
-        <div className="container mx-auto px-4 text-center">
+        {/* 动态小猫背景动画 */}
+        <AnimatedCatBackground />
+        
+        <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">每个生命都值得被温柔以待</h1>
           <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto">一个连接爱心与生命的平台，为流浪的它们寻找一个温暖的家。</p>
           

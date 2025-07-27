@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>每个生命都值得被温柔以待 - 动态背景演示</title>
+    <style>
+        /* 基础样式和字体 */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            margin: 0;
+            background-color: #111827; /* Page background */
+        }
+
+        /* Hero Section 核心样式 */
+        .hero-section {
+            position: relative;
+            color: white;
+            padding-top: 5rem;    /* 80px */
+            padding-bottom: 5rem; /* 80px */
+            overflow: hidden; /* 确保奔跑的小猫不会导致滚动条 */
+        }
+        
+        /* 背景层 */
+        .hero-background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(https://images.unsplash.com/photo-1574158622682-e40e69841006?q=80&w=2080&auto=format&fit=crop);
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+        }
+
+        .hero-background-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* 模拟 from-gray-900 to-gray-700 并增加透明度 */
+            background-image: linear-gradient(to right, rgba(17, 24, 39, 0.8), rgba(55, 65, 81, 0.8));
+            z-index: -1;
+        }
+
+        /* 内容容器 */
+        .container {
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            text-align: center;
+            position: relative; /* 确保内容在动画之上 */
+            z-index: 10;
+        }
+
+        /* 文本样式 */
+        h1 {
+            font-size: 2.25rem; /* 36px */
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.125rem; /* 18px */
+            margin-bottom: 2rem;
+            max-width: 48rem; /* max-w-3xl */
+            margin-left: auto;
+            margin-right: auto;
+            color: #D1D5DB; /* text-gray-300 */
+        }
+        
+        /* 统计数据网格布局 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            max-width: 42rem; /* max-w-2xl */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat-item .value {
+            font-size: 1.5rem; /* 24px */
+            font-weight: 700;
+        }
+
+        .stat-item .label {
+            font-size: 0.875rem; /* 14px */
+            color: #D1D5DB; /* text-gray-300 */
+        }
+        
+        /* 配色 */
+        .text-orange-400 { color: #FB923C; }
+        .text-green-400 { color: #4ADE80; }
+        .text-blue-400 { color: #60A5FA; }
+        .text-red-400 { color: #F87171; }
+
+        /* 响应式设计 */
+        @media (min-width: 768px) {
+            .hero-section {
+                padding-top: 8rem; /* 128px */
+                padding-bottom: 8rem; /* 128px */
+            }
+            h1 {
+                font-size: 3.75rem; /* 60px */
+            }
+            p {
+                font-size: 1.25rem; /* 20px */
+            }
+            .stats-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+            .stat-item .value {
+                font-size: 1.875rem; /* 30px */
+            }
+        }
+
+        /* --- 动态小猫动画 --- */
+        #animated-cat-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none; /* 动画不影响鼠标点击 */
+            z-index: 0;
+        }
+
+        .cat-element {
+            position: absolute;
+            will-change: transform, opacity, right; /* 性能优化 */
+        }
+        
+        /* 奔跑的小猫：从右到左，然后消失 */
+        @keyframes run-across {
+            0% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-150vw); /* 确保完全移出各种宽度的屏幕 */
+                opacity: 0;
+            }
+        }
+
+        .cat-animation-running {
+            width: 100px;
+            animation: run-across 15s linear; /* 动画只播放一次 */
+        }
+        
+        /* 翻滚的小猫：出现，翻滚，然后消失 */
+        @keyframes roll-and-fade {
+            0%, 100% { opacity: 0; transform: scale(0.8) rotate(0deg); }
+            10%, 80% { opacity: 1; transform: scale(1) rotate(0deg); }
+            40% { transform: scale(1) rotate(180deg); }
+            60% { transform: scale(1) rotate(360deg); }
+        }
+
+        .cat-animation-rolling {
+            width: 70px;
+            animation: roll-and-fade 8s ease-in-out; /* 动画只播放一次 */
+        }
+
+    </style>
+</head>
+<body>
+
+    <section class="hero-section">
+        <div class="hero-background-image"></div>
+        <div class="hero-background-gradient"></div>
+
+        <div id="animated-cat-background"></div>
+
+        <div class="container">
+            <h1>每个生命都值得被温柔以待</h1>
+            <p>一个连接爱心与生命的平台，为流浪的它们寻找一个温暖的家。</p>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="value text-orange-400">1,234</div>
+                    <div class="label">累计救助</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value text-green-400">89</div>
+                    <div class="label">本月新增</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value text-blue-400">567</div>
+                    <div class="label">活跃志愿者</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value text-red-400">23</div>
+                    <div class="label">紧急求助</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const background = document.getElementById('animated-cat-background');
+            
+            // 定义动画库
+            const animationTypes = ['running', 'rolling'];
+            const colors = ['#FB923C', '#4ADE80', '#60A5FA', '#F87171'];
+            
+            // SVG 路径库。你可以设计更精美的SVG。
+            // 这是一个非常简化的“奔跑”示意SVG
+            const catSvgPaths = {
+                running: `
+                    <svg viewBox="0 0 200 80" style="overflow: visible;">
+                      <path d="M5 50 Q 20 10, 40 40 T 80 40 T 120 50 T 160 45" stroke-width="5" stroke-linecap="round" fill="none"/>
+                      <circle cx="170" cy="35" r="3" fill="currentColor"/>
+                      <path d="M125 50 Q 130 70, 140 50" stroke-width="4" stroke-linecap="round" fill="none"/>
+                      <path d="M85 40 Q 90 60, 100 40" stroke-width="4" stroke-linecap="round" fill="none"/>
+                    </svg>`,
+                rolling: `
+                    <svg viewBox="0 0 100 100" style="overflow: visible;">
+                       <path d="M20 50 C 20 20, 80 20, 80 50 S 20 80, 50 80" stroke-width="5" stroke-linecap="round" fill="none"/>
+                       <path d="M70 40 A 5 5 0 0 1 70 42" stroke-width="6" stroke-linecap="round" fill="none"/>
+                       <path d="M75 45 A 5 5 0 0 0 77 43" stroke-width="6" stroke-linecap="round" fill="none"/>
+                    </svg>`
+            };
+
+            const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+            // 定时器，用于生成小猫
+            setInterval(() => {
+                const type = getRandomItem(animationTypes);
+                const color = getRandomItem(colors);
+                
+                const catElement = document.createElement('div');
+                catElement.classList.add('cat-element', `cat-animation-${type}`);
+
+                // 根据类型设置不同的初始位置
+                if (type === 'running') {
+                    // 从右侧屏幕外开始，高度在屏幕下半部分随机
+                    catElement.style.top = `${Math.random() * 30 + 65}%`;
+                    catElement.style.right = '-150px';
+                } else if (type === 'rolling') {
+                    // 在屏幕内随机位置
+                    catElement.style.top = `${Math.random() * 40 + 50}%`; 
+                    catElement.style.left = `${Math.random() * 80 + 10}%`;
+                }
+                
+                // 注入SVG并设置颜色
+                catElement.innerHTML = catSvgPaths[type];
+                catElement.style.color = color; // SVG中的 path stroke="currentColor" 会继承这个颜色
+
+                background.appendChild(catElement);
+
+                // 动画结束后移除元素，防止DOM无限增多
+                const animationDuration = (type === 'running') ? 15000 : 8000;
+                setTimeout(() => {
+                    catElement.remove();
+                }, animationDuration);
+
+            }, 3500); // 每3.5秒尝试生成一只小猫
+        });
+    </script>
+
+</body>
+</html>

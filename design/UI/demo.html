@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>每个生命都值得被温柔以待 - 动态背景演示</title>
+  <style>
+    /* 基础样式和字体 */
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                   "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      background-color: #111827;
+      color: white;
+    }
+
+    /* Hero Section 核心样式 */
+    .hero-section {
+      position: relative;
+      overflow: hidden;
+      padding: 5rem 0;
+    }
+
+    /* 背景图+渐变 */
+    .hero-background-image,
+    .hero-background-gradient {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+    .hero-background-image {
+      background: url(https://images.unsplash.com/photo-1574158622682-e40e69841006?q=80&w=2080&auto=format&fit=crop)
+                  center/cover no-repeat;
+      z-index: -2;
+    }
+    .hero-background-gradient {
+      background: linear-gradient(to right,
+                  rgba(17,24,39,0.8),
+                  rgba(55,65,81,0.8));
+      z-index: -1;
+    }
+
+    /* 猫咪动画层 */
+    #animated-cat-background {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    /* 内容容器 */
+    .container {
+      position: relative;
+      z-index: 10;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.125rem;
+      color: #D1D5DB;
+      margin: 0 auto 2rem;
+      max-width: 48rem;
+    }
+
+    /* 统计数据 */
+    .stats-grid {
+      display: grid;
+      gap: 1rem;
+      max-width: 42rem;
+      margin: 0 auto;
+      grid-template-columns: repeat(2,1fr);
+    }
+    .stat-item .value {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    .stat-item .label {
+      font-size: 0.875rem;
+      color: #D1D5DB;
+    }
+    .text-orange-400 { color: #FB923C; }
+    .text-green-400  { color: #4ADE80; }
+    .text-blue-400   { color: #60A5FA; }
+    .text-red-400    { color: #F87171; }
+
+    /* 响应式 */
+    @media (min-width: 768px) {
+      .hero-section { padding: 8rem 0; }
+      h1 { font-size: 3.75rem; }
+      p  { font-size: 1.25rem; }
+      .stats-grid { grid-template-columns: repeat(4,1fr); }
+      .stat-item .value { font-size: 1.875rem; }
+    }
+
+    /* 猫元素共用 */
+    .cat-element {
+      position: absolute;
+      will-change: transform, opacity;
+      font-size: 3rem;
+      display: inline-block;
+      opacity: 0;
+    }
+
+    /* 跑动动画 */
+    @keyframes run-across {
+      0%   { transform: translateX(0);    opacity: 1; }
+      90%  { opacity: 1; }
+      100% { transform: translateX(-150vw); opacity: 0; }
+    }
+    .cat-animation-running {
+      animation: run-across 15s linear forwards;
+      font-size: 4rem;
+    }
+
+    /* 翻滚动画 */
+    @keyframes roll-and-fade {
+      0%,100% { opacity: 0; transform: scale(0.8) rotate(0deg); }
+      10%,80% { opacity: 1; transform: scale(1)   rotate(0deg); }
+      40%     { transform: scale(1) rotate(180deg); }
+      60%     { transform: scale(1) rotate(360deg); }
+    }
+    .cat-animation-rolling {
+      animation: roll-and-fade 8s ease-in-out forwards;
+      font-size: 2.5rem;
+    }
+  </style>
+</head>
+<body>
+  <section class="hero-section">
+    <div class="hero-background-image"></div>
+    <div class="hero-background-gradient"></div>
+    <div id="animated-cat-background"></div>
+
+    <div class="container">
+      <h1>每个生命都值得被温柔以待</h1>
+      <p>一个连接爱心与生命的平台，为流浪的它们寻找一个温暖的家。</p>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="value text-orange-400">1,234</div>
+          <div class="label">累计救助</div>
+        </div>
+        <div class="stat-item">
+          <div class="value text-green-400">89</div>
+          <div class="label">本月新增</div>
+        </div>
+        <div class="stat-item">
+          <div class="value text-blue-400">567</div>
+          <div class="label">活跃志愿者</div>
+        </div>
+        <div class="stat-item">
+          <div class="value text-red-400">23</div>
+          <div class="label">紧急求助</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const bg = document.getElementById('animated-cat-background');
+      const types  = ['running','rolling'];
+      const emojis = { running: '🐈', rolling: '😺' };
+
+      function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+      setInterval(() => {
+        const type = rand(types);
+        const kitty = document.createElement('div');
+        kitty.classList.add('cat-element', `cat-animation-${type}`);
+        kitty.textContent = emojis[type];
+
+        // 初始位置
+        if(type==='running'){
+          kitty.style.top   = `${65 + Math.random()*30}%`;
+          kitty.style.right = '-150px';
+        } else {
+          kitty.style.top  = `${50 + Math.random()*40}%`;
+          kitty.style.left = `${10 + Math.random()*80}%`;
+        }
+
+        bg.appendChild(kitty);
+        // 动画结束后清理
+        const duration = type==='running'?15000:8000;
+        setTimeout(()=> kitty.remove(), duration);
+
+      }, 3500);
+    });
+  </script>
+</body>
+</html>
