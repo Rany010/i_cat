@@ -10,7 +10,7 @@ import {
   Star, 
   CheckCircle, 
   Users, 
-  Medical,
+  Stethoscope,
   Home,
   Edit,
   Flag,
@@ -87,15 +87,15 @@ const CatDetail = () => {
           updater: "志愿者-李华",
           type: "volunteer"
         },
-        {
-          id: 3,
-          status: "current",
-          icon: Medical,
-          title: "已送医检查",
-          time: "2024-07-24 14:30",
-          updater: "志愿者-李华",
-          type: "volunteer"
-        },
+                 {
+           id: 3,
+           status: "current",
+           icon: Stethoscope,
+           title: "已送医检查",
+           time: "2024-07-24 14:30",
+           updater: "志愿者-李华",
+           type: "volunteer"
+         },
         {
           id: 4,
           status: "pending",
@@ -395,10 +395,10 @@ const CatDetail = () => {
                     <Heart className="h-5 w-5" />
                     <span>申请领养</span>
                   </button>
-                  <button className="w-full bg-green-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-600 transition flex items-center justify-center space-x-2">
-                    <Medical className="h-5 w-5" />
-                    <span>我来救助</span>
-                  </button>
+                                     <button className="w-full bg-green-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-600 transition flex items-center justify-center space-x-2">
+                     <Stethoscope className="h-5 w-5" />
+                     <span>我来救助</span>
+                   </button>
                   <button className="w-full bg-gray-100 text-gray-700 font-bold py-3 px-4 rounded-lg hover:bg-gray-200 transition flex items-center justify-center space-x-2">
                     <Share2 className="h-5 w-5" />
                     <span>分享信息</span>
