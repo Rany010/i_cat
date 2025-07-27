@@ -2,6 +2,13 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Menu, X, Heart, Bell, Plus, Search, User, FileText, Settings, LogOut, ChevronDown } from 'lucide-react'
 
+// 猫脸Logo组件
+const CatLogo = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.17c0 .55-.45 1-1 1s-1-.45-1-1v-4.34c0-.55.45-1 1-1s1 .45 1 1v4.34zm4 0c0 .55-.45 1-1 1s-1-.45-1-1v-4.34c0-.55.45-1 1-1s1 .45 1 1v4.34zm-5.29-8.71c-.39.39-1.02.39-1.41 0l-.71-.71c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l.71.71c.39.39.39 1.02 0 1.41zm6 0c-.39.39-1.02.39-1.41 0l-.71-.71c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l.71.71c.39.39.39 1.02 0 1.41z"/>
+  </svg>
+)
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
@@ -16,7 +23,7 @@ const Header = () => {
       <div className="container mx-auto px-4 lg:px-8 py-4 flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center space-x-2">
-          <Heart className="h-8 w-8 text-orange-500" />
+          <CatLogo className="h-8 w-8 text-orange-500" />
           <Link to="/" className="text-2xl font-bold text-gray-800">喵途</Link>
         </div>
 
